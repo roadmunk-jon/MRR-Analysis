@@ -11,3 +11,13 @@ It is also highly recommended to use a virtual environment to manage the various
 Setting up git:
 
 git is a system used to save work in progress. First, you must install git. You can do this by running git --version from the terminal or by downloading it from the GitHub website. Following this, you can initialize a git repository in your current directory with 'git init'. Lastly, you can connect your git repo to this repository with 'git remote add origin https://github.com/roadmunk-jon/MRR-Analysis.git'.
+
+Design assumptions:
+
+The following data will be provided:
+
+1) Logos
+2) MRR per month
+3) Whether or not each logo is managed
+4) What each logo's last tier was
+5) What each logo's first and last date as customer was
