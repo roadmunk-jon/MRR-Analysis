@@ -12,7 +12,14 @@ df = df.round(0)
 # num[num < 0] = 0
 
 # Finding the first date a company produced MRR.
-first_date = df.keys()[2+np.argmax(df.values!=0,axis=1)]
+# first_date = df.keys()[np.argmax(df.values!=0,axis=1)]
+
+# no_names = df.loc[:, 2:]
+# first_date = no_names.keys()[np.argmax(no_names.values!=0,axis=1)]
+# df.insert(2, "first_date", first_date)
+
+no_names = df.drop(['Customer Name', 'Self-serve'], axis=1)
+first_date = no_names.keys()[np.argmax(no_names.values!=0,axis=1)]
 df.insert(2, "first_date", first_date)
 
 print(df.head())
