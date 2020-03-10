@@ -1,25 +1,29 @@
 import pandas as pd
 import numpy as np
+from datetime import datetime as dt
+import re
 
 # The original dataframe is a table of months and companies, with the companies' MRR per month in each cell.
-df = pd.read_csv("mrr.csv")
+df = pd.read_csv("key_dates.csv")
 
-# For now, all numbers are rounded to avoid very small negative values, e.g. -0.01.
-df = df.round(0)
+# Remove the last column. It has NaN errors.
+df = df.iloc[:, :-1]
 
-#  WIP: Round only values that are less than 0.
-# num = df._get_numeric_data()
-# num[num < 0] = 0
+# Convert headers to datetime.
+# month
+# datetime_headers = []
+# for column in list(df.columns.values[5:]):
+#     datetime_headers += dt.strptime(column, '%Y-%M-%d')
 
-# Finding the first date a company produced MRR.
-# first_date = df.keys()[np.argmax(df.values!=0,axis=1)]
+# Retention
 
-# no_names = df.loc[:, 2:]
-# first_date = no_names.keys()[np.argmax(no_names.values!=0,axis=1)]
-# df.insert(2, "first_date", first_date)
+# cohort_starting_mrr = df.groupby(['2015-01-31']).sum()
+cohort_starting_mrr = df.sum(axis = 0, skipna = True)
+cohort_starting_mrr = cohort_starting_mrr[2:]
 
-no_names = df.drop(['Customer Name', 'Self-serve'], axis=1)
-first_date = no_names.keys()[np.argmax(no_names.values!=0,axis=1)]
-df.insert(2, "first_date", first_date)
+# cohort_starting_mrr =  df[[col for col in df.columns if col not in ("Customer Name", "managed?", "first_date", "last_date") 
+#            and dt(col[:3], ) >= dt(2015,1,1) 
+#            and dt(col) <= dt(2016,3,1)]]
 
-print(df.head())
+# print(cohort_starting_mrr.head())
+print (cohort_starting_mrr)
