@@ -11,31 +11,23 @@ df = pd.read_csv("key_dates.csv")
 df = df.iloc[:, :-1]
 
 # Retention
-
-# Find the total MRR each month. This will be the denominator.
-cohort_starting_mrr = df.sum(axis = 0, skipna = True)
-cohort_starting_mrr = cohort_starting_mrr[2:]
-
-# Find the MRR 12 months later from the companies that made up the denominator. This will be the numerator.
-# df['matches'] = df.apply(lambda x: x['2016-01-31'] if x['2015-01-31'] >= 1 else 0, axis=1)
-# cohort_ending_mrr = df.matches.sum()
-
 cohort_mrr_12_mths_later = {'cohort': [], 'starting_mrr': [], 'ending_mrr': [], 'retention': []}
 
 for cohort in list(df.columns[7:]):
+    # Find the total MRR each month. This will be the denominator.
     cohort_starting_mrr = df[cohort].sum(axis = 0, skipna = True)
+    # Find the MRR 12 months later from the companies that made up the denominator.
+    # This will be the numerator.
     ending_month = pd.to_datetime(np.datetime64(cohort)) + pd.DateOffset(years=1)
     ending_month_string = ending_month.strftime('%Y-%m-%d')
     if ending_month < pd.to_datetime(np.datetime64('2020-01-31')):
-        ending_mrr = df.apply(lambda x: x[ending_month_string] if x[cohort] > 0 else 0, axis=1)
-        sum_of_ending_mrr = ending_mrr.sum()
-        # mrr_object = {cohort: ending_mrr, }
+        cohort_ending_mrr = df.apply(lambda x: x[ending_month_string] if x[cohort] >= 1 else 0, axis=1).sum()
         cohort_mrr_12_mths_later['cohort'].append(cohort)
         cohort_mrr_12_mths_later['starting_mrr'].append(cohort_starting_mrr)
-        cohort_mrr_12_mths_later['ending_mrr'].append(sum_of_ending_mrr)
-        cohort_mrr_12_mths_later['retention'].append(cohort_starting_mrr/sum_of_ending_mrr)
+        cohort_mrr_12_mths_later['ending_mrr'].append(cohort_ending_mrr)
+        cohort_mrr_12_mths_later['retention'].append(cohort_starting_mrr/cohort_ending_mrr)
 
-cohort_df = pd.DataFrame(data=cohort_mrr_12_mths_later)
+retention_df = pd.DataFrame(data=cohort_mrr_12_mths_later)
 
 # print(cohort_starting_mrr.head())
-print (cohort_df)
+print (retention_df)
