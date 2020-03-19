@@ -1,1 +1,5 @@
 ﻿bundle_id,product_id,valid,invalid_reason
+1,1,1,
+2,2,1,
+3,2,1,
+4,3,0,duplicate
