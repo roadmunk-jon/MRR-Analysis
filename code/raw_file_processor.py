@@ -8,12 +8,12 @@ df = pd.read_csv('schema/subscriptions_raw.csv')
 
 # Identify subscriptions with an 'N/A' in any cell and write them to a file with a datetime suffix.
 error_df = df.loc[df.isna().any(axis=1)]
-error_path = "schema/subscriptions_errors_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
+error_path = "schema/subscriptions_errors/subscriptions_errors_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
 error_df.to_csv(error_path, index=False)
 
 # Identify subscriptions with an 'N/A' in any cell and write them to a file with a datetime suffix.
 df_for_processing = df.loc[df.notna().all(axis=1)]
-clean_path = "schema/subscriptions_clean_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
+clean_path = "schema/subscriptions_clean/subscriptions_clean_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
 df_for_processing.to_csv(clean_path, index=False)
 
 print(error_df, df_for_processing)

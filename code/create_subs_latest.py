@@ -7,13 +7,8 @@ import os
 
 
 # Get the file containing the latest output of raw_file_processor.py
-list_of_files = glob.glob('schema/*.csv')
-
-list_of_subs_files =[]
-for sub in list_of_files:
-    if sub.startswith('schema/subscriptions_clean_'):
-        list_of_subs_files.append(sub)
-latest_subs_file = max(list_of_subs_files, key=os.path.getctime)
+list_of_files = glob.glob('schema/subscriptions_clean/*.csv')
+latest_subs_file = max(list_of_files, key=os.path.getctime)
 latest_subs_df = pd.read_csv(latest_subs_file)
 
 # Add an analysis_datetime column with the current datetime.
@@ -33,7 +28,7 @@ latest_subs_df['mrr'] = subs_products['monthly_unit_price'].sum()
 latest_subs_df['arr'] = subs_products['annual_unit_price'].sum()
 
 
-# latest_subs_path = "schema/subscriptions_latest_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
-# latest_subs_df.to_csv(latest_subs_path, index=False)
+latest_subs_path = "schema/subscriptions_latest/subscriptions_latest_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
+latest_subs_df.to_csv(latest_subs_path, index=False)
 
 print(latest_subs_df)

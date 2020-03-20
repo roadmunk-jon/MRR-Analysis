@@ -1,0 +1,2 @@
+sub_id,RMID,start_of_term,end_of_term,renewal_schedule,bundle_id,analysis_datetime,mrr,arr
+1.0,1.0,2020-03-16,2020-03-16,monthly,1.0,2020-03-20_04-29-41_PM,115,1380
