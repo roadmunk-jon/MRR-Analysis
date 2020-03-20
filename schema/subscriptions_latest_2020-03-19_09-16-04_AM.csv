@@ -1,2 +1,0 @@
-sub_id,RMID,start_of_term,end_of_term,renewal_schedule,bundle_id,analysis_datetime,product_id,valid,invalid_reason,product_name,monthly_unit_price,annual_unit_price
-1.0,1.0,2020-03-16,2020-03-16,monthly,1.0,2020-03-19_09-16-04_AM,1,1,,JIRA,15,180
