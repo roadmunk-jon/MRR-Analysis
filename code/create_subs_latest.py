@@ -21,17 +21,23 @@ subs_bundles_df = pd.merge(latest_subs_df, bundle_df, on='bundle_id')
 
 # Join subs_bundles and products for subs_products.
 products_df = pd.read_csv('schema/products.csv')
-subs_products = pd.merge(subs_bundles_df, products_df, on='product_id')
+subs_products_df = pd.merge(subs_bundles_df, products_df, on='product_id')
+subs_products_df = subs_products_df.groupby('RMID')['annual_unit_price', 'monthly_unit_price'].sum()
 
 # Write the MRR and ARR to columns in the latest_subs_df
-latest_subs_df['mrr'] = subs_products['monthly_unit_price'].sum()
-latest_subs_df['arr'] = subs_products['annual_unit_price'].sum()
+latest_subs_df = pd.merge(latest_subs_df, subs_products_df, on='RMID')
 
-# This section deals with movement classification
-# Step 1: Is it the first time this logo has a subscription (new)?
-accounts_df = pd.read_csv('schema/accounts.csv')
+# This section deals with movement classification.
+# Join accounts and logos for accounts_logos
+# accounts_df = pd.read_csv('schema/accounts.csv')
+# logos_df = pd.read_csv('schema/logos.csv')
+# accounts_logos_df = pd.merge(accounts_df, logos_df, on='logo_id')
 
-# latest_subs_path = "schema/subscriptions_latest/subscriptions_latest_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
-# latest_subs_df.to_csv(latest_subs_path, index=False)
+# Classifications are done from most general to most specific, so that the general case can be overwritten.
 
-print(accounts_df)
+# Is it the first time this logo has a subscription (new)?
+
+latest_subs_path = "schema/subscriptions_latest/subscriptions_latest_" + dt.now().strftime("%Y-%m-%d_%I-%M-%S_%p") + ".csv"
+latest_subs_df.to_csv(latest_subs_path, index=False)
+
+print(latest_subs_df)
