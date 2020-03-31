@@ -1,3 +1,0 @@
-sub_id,RMID,start_of_term,end_of_term,renewal_schedule,bundle_id,analysis_datetime,annual_unit_price,monthly_unit_price
-1.0,1.0,2020-03-16,2020-03-16,monthly,1.0,2020-03-26_08-09-14_AM,1380,115
-7.0,2.0,2020-03-16,2020-03-16,annual,2.0,2020-03-26_08-09-14_AM,1200,100
