@@ -1,4 +1,0 @@
-sub_id,RMID,start_of_term,end_of_term,renewal_schedule,bundle_id,analysis_datetime,arr,mrr,logo_start,logo_end,last_gross_mrr,last_gross_arr,last_net_mrr,last_net_arr,movement_classification
-1.0,1.0,2020-03-16,2020-03-16,monthly,1.0,2020-03-31_09-14-52_AM,4080,340,2019-03-16,2020-03-16,10,120,10,120,churn
-8.0,1.0,2017-03-16,2021-03-16,annual,3.0,2020-03-31_09-14-52_AM,4080,340,2020-03-16,2020-04-16,10,120,10,120,expansion
-7.0,2.0,2020-03-16,2020-03-16,annual,2.0,2020-03-31_09-14-52_AM,1200,100,2019-03-16,2020-04-16,10,120,10,120,expansion
